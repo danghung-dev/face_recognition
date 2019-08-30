@@ -36,6 +36,9 @@ labelIDs = np.unique(clt.labels_)
 numUniqueFaces = len(np.where(labelIDs > -1)[0])
 print("[INFO] # unique faces: {}".format(numUniqueFaces))
 
+if not os.path.exists("labeled_face_images"):
+    os.makedirs("labeled_face_images")
+
 # loop over the unique face integers
 for labelID in labelIDs:
 	# find all indexes into the `data` array that belong to the
@@ -45,8 +48,9 @@ for labelID in labelIDs:
 	idxs = np.where(clt.labels_ == labelID)[0]
 	idxs = np.random.choice(idxs, size=min(25, len(idxs)),
 		replace=False)
-	if not os.path.exists(str(labelID)):
-			os.makedirs(str(labelID))
+	savePath = "labeled_face_images" + "/" + str(labelID)
+	if not os.path.exists(savePath):
+		os.makedirs(savePath)
 	# initialize the list of faces to include in the montage
 	faces = []
 	print('labelId', labelID)
@@ -56,7 +60,7 @@ for labelID in labelIDs:
 		image = cv2.imread(data[i]["imagePath"])
 		(top, right, bottom, left) = data[i]["loc"]
 		face = image[top:bottom, left:right]
-		cv2.imwrite(str(labelID)+ '/' + str(i) + '.jpg',face)
+		cv2.imwrite(savePath + '/' + str(i) + '.jpg',face)
 		# force resize the face ROI to 96x96 and then add it to the
 		# faces montage list
 		face = cv2.resize(face, (96, 96))
@@ -64,9 +68,9 @@ for labelID in labelIDs:
 
 	# create a montage using 96x96 "tiles" with 5 rows and 5 columns
 	montage = build_montages(faces, (96, 96), (5, 5))[0]
-	
+
 	# show the output montage
 	title = "Face ID #{}".format(labelID)
 	title = "Unknown Faces" if labelID == -1 else title
-	cv2.imshow(title, montage)
-	cv2.waitKey(0)
+	# cv2.imshow(title, montage)
+	# cv2.waitKey(0)

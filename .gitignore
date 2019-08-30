@@ -63,3 +63,6 @@ target/
 .python-version
 
 .idea/
+app/data
+app/face_images
+app/labeled_face_images

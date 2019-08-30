@@ -22,6 +22,7 @@ args = vars(ap.parse_args())
 # grab the paths to the input images in our dataset, then initialize
 # out data list (which we'll soon populate)
 print("[INFO] quantifying faces...")
+print("arg",args["dataset"])
 imagePaths = list(paths.list_images(args["dataset"]))
 data = []
 
