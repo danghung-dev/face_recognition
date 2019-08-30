@@ -10,8 +10,8 @@ services:
       #Uncomment this line to run the example on the GPU (requires Nvidia-Docker)
       # dockerfile: Dockerfile.gpu
     # command: python3 -u face_location.py
-    # command: python3 -u encode_faces.py -i face_images -e encodings.pickle
-    command: python3 -u cluster_faces.py -e encodings.pickle
+    # command: python3 -u encode_faces.py -i data -e encodings.pickle
+    command: python3 -u cluster_faces.py -e encodings.pickle2
     volumes:
       - ./:/face_recognition
     #Uncomment this line to run the example on the GPU (requires Nvidia-Docker)
